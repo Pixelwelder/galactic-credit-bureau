@@ -21,3 +21,8 @@
 npm-debug.log*
 yarn-debug.log*
 yarn-error.log*
+
+__config__
+.idea
+
+.firebase/hosting.*.cache
