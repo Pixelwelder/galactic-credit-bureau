@@ -12,14 +12,8 @@ function App() {
     <Provider store={store}>
       <Router>
         <div className="App">
-          <header className="App-header">
-            <img src={logo} className="App-logo" alt="logo" />
-            <p>
-              Edit <code>src/App.js</code> and save to reload.
-            </p>
-          </header>
           <Switch>
-            <Route path="/auth-callback">
+            <Route path="/imgur-auth-callback">
               <AuthCallback />
             </Route>
             <Route>
