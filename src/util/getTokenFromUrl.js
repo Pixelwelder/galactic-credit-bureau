@@ -1,4 +1,4 @@
-export default () => {
+const getTokenFromUrl = () => {
   const params = {};
   const queryString = window.location.hash.substring(1);
   const regex = /([^&=]+)=([^&]*)/g
@@ -9,3 +9,5 @@ export default () => {
 
   return Object.keys(params) ? params : null;
 }
+
+export default getTokenFromUrl;

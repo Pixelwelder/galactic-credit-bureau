@@ -1,4 +1,4 @@
-import { createAsyncThunk, createSelector, createSlice } from '@reduxjs/toolkit';
+import { createAsyncThunk, createSlice } from '@reduxjs/toolkit';
 import getTokenFromUrl from '../util/getTokenFromUrl';
 import { imgurConfig } from '../config';
 

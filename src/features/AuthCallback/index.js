@@ -9,9 +9,12 @@ const AuthCallback = () => {
   const history = useHistory();
 
   useEffect(() => {
-    dispatch(authActions.getToken())
-    history.push('/');
-  }, []);
+    const go = async () => {
+      await dispatch(authActions.getToken())
+      history.push('/');
+    };
+    go();
+  }, [dispatch, history]);
 
   return (
     <div>

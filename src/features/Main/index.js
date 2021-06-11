@@ -14,7 +14,7 @@ const Main = () => {
 
   return (
     <div className="main-page">
-      {avatar && (<img className="avatar" src={avatar} />)}
+      {avatar && (<img alt="avatar" className="avatar" src={avatar} />)}
       {token && <Typography variant="h5">{token.account_username}</Typography>}
       {!token && <Button variant="contained" onClick={onAuth}>Imgur</Button>}
     </div>
