@@ -6,4 +6,6 @@ export default () => {
   while (m = regex.exec(queryString)) {
     params[decodeURIComponent(m[1])] = decodeURIComponent(m[2]);
   }
+
+  return Object.keys(params) ? params : null;
 }

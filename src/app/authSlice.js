@@ -1,4 +1,5 @@
-import { createSelector, createSlice } from '@reduxjs/toolkit';
+import { createAsyncThunk, createSelector, createSlice } from '@reduxjs/toolkit';
+import getTokenFromUrl from '../util/getTokenFromUrl';
 
 const name = 'auth';
 const initialState = {
@@ -6,12 +7,25 @@ const initialState = {
   token: null
 };
 
+const getToken = createAsyncThunk(
+  `${name}/getToken`,
+  async (_, { dispatch }) => {
+    const token = getTokenFromUrl();
+    if (token) dispatch(generatedActions.setToken(token));
+  }
+);
+
 const { reducer, actions: generatedActions } = createSlice({
   name,
-  initialState
+  initialState,
+  reducers: {
+    setToken: (state, action) => {
+      state.token = action.payload;
+    }
+  }
 });
 
-const actions = { ...generatedActions };
+const actions = { ...generatedActions, getToken };
 
 const select = ({ auth }) => auth;
 const selectors = { select };

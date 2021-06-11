@@ -1,11 +1,16 @@
 import Typography from '@material-ui/core/Typography'
 import { useEffect } from 'react';
-import getQueryString from '../../util/getQueryString';
+import { actions as authActions } from '../../app/authSlice';
+import { useDispatch } from 'react-redux';
+import { useHistory } from 'react-router-dom';
 
 const AuthCallback = () => {
+  const dispatch = useDispatch();
+  const history = useHistory();
+
   useEffect(() => {
-    const queryString = getQueryString();
-    console.log(queryString);
+    dispatch(authActions.getToken())
+    history.push('/');
   }, []);
 
   return (
