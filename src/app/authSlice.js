@@ -1,3 +1,4 @@
+import app from 'firebase/app';
 import { createAsyncThunk, createSlice } from '@reduxjs/toolkit';
 import getTokenFromUrl from '../util/getTokenFromUrl';
 import { imgurConfig } from '../config';
@@ -6,8 +7,19 @@ const name = 'auth';
 const initialState = {
   // { access_token, account_id, account_username, expires_in, refresh_token, token_type };
   token: null,
-  avatar: null
+  avatar: null,
+
+  isSignedIn: false
 };
+
+const init = createAsyncThunk(
+  `${name}/init`,
+  async (_, { dispatch }) => {
+    app.auth().onAuthStateChanged((authUser) => {
+      dispatch(generatedActions.setIsSignedIn(!!authUser));
+    });
+  }
+);
 
 const getToken = createAsyncThunk(
   `${name}/getToken`,
@@ -17,6 +29,13 @@ const getToken = createAsyncThunk(
       dispatch(generatedActions.setToken(token));
       await dispatch(getAvatar());
     }
+  }
+);
+
+const signOut = createAsyncThunk(
+  `${name}/signOut`,
+  async () => {
+    app.auth().signOut();
   }
 );
 
@@ -47,11 +66,14 @@ const { reducer, actions: generatedActions } = createSlice({
     },
     setAvatar: (state, action) => {
       state.avatar = action.payload;
+    },
+    setIsSignedIn: (state, action) => {
+      state.isSignedIn = action.payload;
     }
   }
 });
 
-const actions = { ...generatedActions, getToken };
+const actions = { ...generatedActions, getToken, init, signOut };
 
 const select = ({ auth }) => auth;
 const selectors = { select };
